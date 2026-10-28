@@ -1,0 +1,22 @@
+Gladys MTA New York integration
+Copyright 2026 William Deren
+
+This product is licensed under the Apache License, Version 2.0 (see LICENSE).
+
+The real-time trip updates of the subway and the service alerts (GTFS-RT)
+are obtained from the servers of the Metropolitan Transportation Authority
+(MTA) of the State of New York, https://api.mta.info/, under the MTA terms
+and conditions for data feeds:
+https://www.mta.info/developers/terms-and-conditions. Each Gladys instance
+downloads them on its own server and shows them to its users. The list of the
+stations ("MTA Subway Stations") comes from the open data portal of the State
+of New York, https://data.ny.gov/d/39hk-dx4f; a copy ships in
+src/data/stations.csv. The files under test/fixtures are extracts of these
+data.
+
+The data are provided by the MTA "as is": they may not be accurate, complete
+or timely, and what the integration shows may not be real time (it reads the
+feeds every 30 seconds to 10 minutes).
+
+This community integration is not affiliated with, endorsed, licensed or
+sponsored by the MTA, MTA New York City Transit or MTA Staten Island Railway.

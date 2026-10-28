@@ -1,0 +1,113 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="534" viewBox="0 0 800 534">
+  <!-- Cover of the MTA integration for Gladys Assistant (illustration, not
+       the logo of the MTA nor any of its marks). New York at dusk: the
+       skyline of Midtown, a stainless steel subway car on an elevated
+       structure, and a countdown clock of the platform announcing the next
+       trains. The route bullets use the colours of the GTFS of the MTA.
+       Built into cover.jpg by scripts/build-cover.sh. -->
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2d3e66"/>
+      <stop offset="0.55" stop-color="#8d7fa6"/>
+      <stop offset="1" stop-color="#f2b880"/>
+    </linearGradient>
+    <linearGradient id="steel" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#e3e7ec"/>
+      <stop offset="0.5" stop-color="#b9c1cb"/>
+      <stop offset="1" stop-color="#8f99a5"/>
+    </linearGradient>
+    <linearGradient id="glass" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#3a4e66"/>
+      <stop offset="1" stop-color="#1d2a3a"/>
+    </linearGradient>
+    <linearGradient id="screen" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#141a24"/>
+      <stop offset="1" stop-color="#0b0f16"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="534" fill="url(#sky)"/>
+  <circle cx="560" cy="250" r="40" fill="#ffd9a0" opacity="0.75"/>
+
+  <!-- the skyline of Midtown -->
+  <g fill="#3b4663">
+    <rect x="300" y="190" width="44" height="140"/>
+    <rect x="350" y="150" width="38" height="180"/>
+    <rect x="394" y="206" width="52" height="124"/>
+    <rect x="452" y="168" width="34" height="162"/>
+    <rect x="600" y="196" width="48" height="134"/>
+    <rect x="654" y="160" width="40" height="170"/>
+    <rect x="700" y="214" width="54" height="116"/>
+    <rect x="760" y="186" width="40" height="144"/>
+  </g>
+  <!-- a spired tower and a stepped one -->
+  <g fill="#2f3954">
+    <path d="M506 330 L506 150 L516 136 L526 120 L536 136 L546 150 L546 330 Z"/>
+    <rect x="524" y="80" width="4" height="42"/>
+    <path d="M232 330 L232 260 L244 260 L244 236 L256 236 L256 210 L268 210 L268 236 L280 236 L280 260 L292 260 L292 330 Z"/>
+    <rect x="261" y="186" width="2" height="26"/>
+  </g>
+  <g fill="#f6d27a" opacity="0.85">
+    <rect x="358" y="170" width="6" height="8"/>
+    <rect x="372" y="196" width="6" height="8"/>
+    <rect x="458" y="190" width="6" height="8"/>
+    <rect x="514" y="176" width="6" height="8"/>
+    <rect x="530" y="214" width="6" height="8"/>
+    <rect x="662" y="186" width="6" height="8"/>
+    <rect x="676" y="232" width="6" height="8"/>
+    <rect x="610" y="220" width="6" height="8"/>
+    <rect x="246" y="276" width="6" height="8"/>
+  </g>
+
+  <!-- the elevated structure -->
+  <rect x="0" y="330" width="800" height="204" fill="#5b5f6b"/>
+  <rect x="0" y="392" width="800" height="12" fill="#3f434d"/>
+  <g fill="#3f434d">
+    <rect x="360" y="404" width="12" height="130"/>
+    <rect x="560" y="404" width="12" height="130"/>
+    <rect x="760" y="404" width="12" height="130"/>
+  </g>
+
+  <!-- the stainless steel subway car -->
+  <g transform="translate(330 316)">
+    <rect x="0" y="0" width="450" height="76" rx="8" fill="url(#steel)"/>
+    <g fill="url(#glass)">
+      <rect x="14" y="12" width="40" height="30" rx="4"/>
+      <rect x="70" y="12" width="26" height="54" rx="2"/>
+      <rect x="110" y="12" width="70" height="30" rx="3"/>
+      <rect x="194" y="12" width="26" height="54" rx="2"/>
+      <rect x="234" y="12" width="70" height="30" rx="3"/>
+      <rect x="318" y="12" width="26" height="54" rx="2"/>
+      <rect x="358" y="12" width="70" height="30" rx="3"/>
+    </g>
+    <circle cx="34" cy="56" r="10" fill="#0062cf"/>
+    <text x="34" y="61" font-family="DejaVu Sans, Arial, sans-serif" font-size="13" font-weight="bold" fill="#ffffff" text-anchor="middle">A</text>
+    <rect x="0" y="70" width="450" height="6" fill="#6c7480"/>
+  </g>
+
+  <!-- the countdown clock of the platform -->
+  <g transform="translate(40 362)">
+    <rect x="0" y="0" width="420" height="150" rx="14" fill="url(#screen)"/>
+    <rect x="0" y="0" width="420" height="150" rx="14" fill="none" stroke="#3a4352" stroke-width="3"/>
+    <g font-family="DejaVu Sans, Arial, sans-serif" font-weight="bold">
+      <circle cx="38" cy="33" r="14" fill="#0062cf"/>
+      <text x="38" y="39" font-size="17" fill="#ffffff" text-anchor="middle">A</text>
+      <text x="64" y="40" font-size="19" fill="#e8eef6">Far Rockaway</text>
+      <text x="400" y="40" font-size="22" fill="#ffd166" text-anchor="end">3 min</text>
+      <circle cx="38" cy="75" r="14" fill="#a7a9ac"/>
+      <text x="38" y="81" font-size="17" fill="#ffffff" text-anchor="middle">L</text>
+      <text x="64" y="82" font-size="19" fill="#e8eef6">8 Av</text>
+      <text x="400" y="82" font-size="22" fill="#ffd166" text-anchor="end">5 min</text>
+      <circle cx="38" cy="117" r="14" fill="#b933ad"/>
+      <text x="38" y="123" font-size="17" fill="#ffffff" text-anchor="middle">7</text>
+      <text x="64" y="124" font-size="19" fill="#e8eef6">Flushing-Main St</text>
+      <text x="400" y="124" font-size="22" fill="#ffd166" text-anchor="end">9 min</text>
+    </g>
+  </g>
+
+  <!-- title -->
+  <g font-family="DejaVu Sans, Arial, sans-serif">
+    <text x="40" y="92" font-size="58" font-weight="bold" fill="#ffffff">MTA New York</text>
+    <text x="42" y="136" font-size="25" fill="#eef2fa">Subway · real time · service status</text>
+    <text x="42" y="172" font-size="22" fill="#dfe6f3">for Gladys Assistant</text>
+  </g>
+</svg>

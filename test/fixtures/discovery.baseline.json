@@ -1,0 +1,496 @@
+{
+  "version": "0.1.0",
+  "devices": {
+    "stationWithLine": {
+      "external_id": "ext:mta-new-york:station:611_a_uptown",
+      "should_poll": false,
+      "params": ["MTA_STATION", "MTA_LINE", "MTA_DIRECTION"],
+      "features": [
+        {
+          "external_id": "ext:mta-new-york:station:611_a_uptown:next",
+          "category": "text",
+          "type": "text",
+          "min": 0,
+          "max": 0,
+          "read_only": true,
+          "has_feedback": false
+        },
+        {
+          "external_id": "ext:mta-new-york:station:611_a_uptown:wait",
+          "category": "duration",
+          "type": "integer",
+          "unit": "minutes",
+          "min": 0,
+          "max": 180,
+          "read_only": true,
+          "has_feedback": false
+        },
+        {
+          "external_id": "ext:mta-new-york:station:611_a_uptown:following",
+          "category": "duration",
+          "type": "integer",
+          "unit": "minutes",
+          "min": 0,
+          "max": 180,
+          "read_only": true,
+          "has_feedback": false
+        }
+      ]
+    },
+    "station": {
+      "external_id": "ext:mta-new-york:station:120",
+      "should_poll": false,
+      "params": ["MTA_STATION"],
+      "features": [
+        {
+          "external_id": "ext:mta-new-york:station:120:next",
+          "category": "text",
+          "type": "text",
+          "min": 0,
+          "max": 0,
+          "read_only": true,
+          "has_feedback": false
+        },
+        {
+          "external_id": "ext:mta-new-york:station:120:wait",
+          "category": "duration",
+          "type": "integer",
+          "unit": "minutes",
+          "min": 0,
+          "max": 180,
+          "read_only": true,
+          "has_feedback": false
+        },
+        {
+          "external_id": "ext:mta-new-york:station:120:following",
+          "category": "duration",
+          "type": "integer",
+          "unit": "minutes",
+          "min": 0,
+          "max": 180,
+          "read_only": true,
+          "has_feedback": false
+        }
+      ]
+    },
+    "subwayLine": {
+      "external_id": "ext:mta-new-york:line:l",
+      "should_poll": false,
+      "params": ["MTA_LINE"],
+      "features": [
+        {
+          "external_id": "ext:mta-new-york:line:l:status",
+          "category": "text",
+          "type": "text",
+          "min": 0,
+          "max": 0,
+          "read_only": true,
+          "has_feedback": false
+        },
+        {
+          "external_id": "ext:mta-new-york:line:l:messages",
+          "category": "counter-sensor",
+          "type": "integer",
+          "min": 0,
+          "max": 20,
+          "read_only": true,
+          "has_feedback": false
+        }
+      ]
+    },
+    "shuttleLine": {
+      "external_id": "ext:mta-new-york:line:gs",
+      "should_poll": false,
+      "params": ["MTA_LINE"],
+      "features": [
+        {
+          "external_id": "ext:mta-new-york:line:gs:status",
+          "category": "text",
+          "type": "text",
+          "min": 0,
+          "max": 0,
+          "read_only": true,
+          "has_feedback": false
+        },
+        {
+          "external_id": "ext:mta-new-york:line:gs:messages",
+          "category": "counter-sensor",
+          "type": "integer",
+          "min": 0,
+          "max": 20,
+          "read_only": true,
+          "has_feedback": false
+        }
+      ]
+    },
+    "railwayLine": {
+      "external_id": "ext:mta-new-york:line:si",
+      "should_poll": false,
+      "params": ["MTA_LINE"],
+      "features": [
+        {
+          "external_id": "ext:mta-new-york:line:si:status",
+          "category": "text",
+          "type": "text",
+          "min": 0,
+          "max": 0,
+          "read_only": true,
+          "has_feedback": false
+        },
+        {
+          "external_id": "ext:mta-new-york:line:si:messages",
+          "category": "counter-sensor",
+          "type": "integer",
+          "min": 0,
+          "max": 20,
+          "read_only": true,
+          "has_feedback": false
+        }
+      ]
+    }
+  },
+  "manifest": {
+    "actions": [
+      "test_connection",
+      "search_station",
+      "add_station",
+      "remove_station",
+      "list_stations",
+      "diagnostic"
+    ],
+    "config_schema": [
+      {
+        "key": "intro",
+        "type": "section"
+      },
+      {
+        "key": "station_1_section",
+        "type": "section"
+      },
+      {
+        "key": "station_1",
+        "type": "string"
+      },
+      {
+        "key": "station_1_line",
+        "type": "string"
+      },
+      {
+        "key": "station_1_direction",
+        "type": "string"
+      },
+      {
+        "key": "station_2_section",
+        "type": "section"
+      },
+      {
+        "key": "station_2",
+        "type": "string"
+      },
+      {
+        "key": "station_2_line",
+        "type": "string"
+      },
+      {
+        "key": "station_2_direction",
+        "type": "string"
+      },
+      {
+        "key": "station_3_section",
+        "type": "section"
+      },
+      {
+        "key": "station_3",
+        "type": "string"
+      },
+      {
+        "key": "station_3_line",
+        "type": "string"
+      },
+      {
+        "key": "station_3_direction",
+        "type": "string"
+      },
+      {
+        "key": "lines_section",
+        "type": "section"
+      },
+      {
+        "key": "lines",
+        "type": "string"
+      },
+      {
+        "key": "options_section",
+        "type": "section"
+      },
+      {
+        "key": "interval",
+        "type": "select"
+      },
+      {
+        "key": "language",
+        "type": "select"
+      }
+    ],
+    "scene_triggers": [
+      {
+        "key": "departure_soon",
+        "fields": [
+          {
+            "key": "station",
+            "options": []
+          },
+          {
+            "key": "minutes",
+            "options": ["2", "3", "5", "10", "15", "20"]
+          }
+        ],
+        "variables": [
+          {
+            "key": "station_name",
+            "type": "string"
+          },
+          {
+            "key": "line",
+            "type": "string"
+          },
+          {
+            "key": "destination",
+            "type": "string"
+          },
+          {
+            "key": "direction",
+            "type": "string"
+          },
+          {
+            "key": "time",
+            "type": "string"
+          },
+          {
+            "key": "scheduled",
+            "type": "boolean"
+          },
+          {
+            "key": "summary",
+            "type": "string"
+          }
+        ]
+      },
+      {
+        "key": "line_disrupted",
+        "fields": [
+          {
+            "key": "line",
+            "options": []
+          }
+        ],
+        "variables": [
+          {
+            "key": "line_name",
+            "type": "string"
+          },
+          {
+            "key": "state",
+            "type": "string"
+          },
+          {
+            "key": "title",
+            "type": "string"
+          },
+          {
+            "key": "message",
+            "type": "string"
+          },
+          {
+            "key": "alert_type",
+            "type": "string"
+          },
+          {
+            "key": "hours",
+            "type": "string"
+          },
+          {
+            "key": "start",
+            "type": "string"
+          },
+          {
+            "key": "end",
+            "type": "string"
+          },
+          {
+            "key": "summary",
+            "type": "string"
+          }
+        ]
+      },
+      {
+        "key": "line_restored",
+        "fields": [
+          {
+            "key": "line",
+            "options": []
+          }
+        ],
+        "variables": [
+          {
+            "key": "line_name",
+            "type": "string"
+          },
+          {
+            "key": "state",
+            "type": "string"
+          },
+          {
+            "key": "summary",
+            "type": "string"
+          }
+        ]
+      },
+      {
+        "key": "service_alert",
+        "fields": [
+          {
+            "key": "line",
+            "options": []
+          },
+          {
+            "key": "kind",
+            "options": ["info", "planned", "disrupted", "suspended"]
+          }
+        ],
+        "variables": [
+          {
+            "key": "line_name",
+            "type": "string"
+          },
+          {
+            "key": "kind",
+            "type": "string"
+          },
+          {
+            "key": "title",
+            "type": "string"
+          },
+          {
+            "key": "message",
+            "type": "string"
+          },
+          {
+            "key": "alert_type",
+            "type": "string"
+          },
+          {
+            "key": "hours",
+            "type": "string"
+          },
+          {
+            "key": "start",
+            "type": "string"
+          },
+          {
+            "key": "end",
+            "type": "string"
+          },
+          {
+            "key": "summary",
+            "type": "string"
+          }
+        ]
+      }
+    ],
+    "scene_actions": [
+      {
+        "key": "get_next_departures",
+        "fields": ["station"],
+        "outputs": [
+          {
+            "key": "station_name",
+            "type": "string"
+          },
+          {
+            "key": "found",
+            "type": "boolean"
+          },
+          {
+            "key": "line",
+            "type": "string"
+          },
+          {
+            "key": "destination",
+            "type": "string"
+          },
+          {
+            "key": "minutes",
+            "type": "number"
+          },
+          {
+            "key": "time",
+            "type": "string"
+          },
+          {
+            "key": "scheduled",
+            "type": "boolean"
+          },
+          {
+            "key": "following_minutes",
+            "type": "number"
+          },
+          {
+            "key": "summary",
+            "type": "string"
+          }
+        ]
+      },
+      {
+        "key": "get_line_status",
+        "fields": ["line"],
+        "outputs": [
+          {
+            "key": "line_name",
+            "type": "string"
+          },
+          {
+            "key": "state",
+            "type": "string"
+          },
+          {
+            "key": "state_label",
+            "type": "string"
+          },
+          {
+            "key": "disrupted",
+            "type": "boolean"
+          },
+          {
+            "key": "alert_count",
+            "type": "number"
+          },
+          {
+            "key": "title",
+            "type": "string"
+          },
+          {
+            "key": "message",
+            "type": "string"
+          },
+          {
+            "key": "summary",
+            "type": "string"
+          }
+        ]
+      }
+    ],
+    "widgets": [
+      {
+        "key": "departures",
+        "settings": ["station", "stations", "station_name", "line", "count"],
+        "options": {}
+      },
+      {
+        "key": "traffic",
+        "settings": ["lines"],
+        "options": {}
+      }
+    ]
+  }
+}

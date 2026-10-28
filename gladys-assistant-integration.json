@@ -1,0 +1,1771 @@
+{
+  "manifest_version": 1,
+  "type": "device",
+  "name": "MTA New York",
+  "description": {
+    "en": "New York City subway (MTA): real-time departures and service status of the lines.",
+    "fr": "Métro de New York (MTA) : départs en temps réel et état du service des lignes.",
+    "de": "New Yorker U-Bahn (MTA): Echtzeit-Abfahrten und Betriebslage der Linien.",
+    "es": "Metro de Nueva York (MTA): salidas en tiempo real y estado del servicio."
+  },
+  "version": "0.1.0",
+  "docker_image": "ghcr.io/william-de71/gladys-mta-new-york:0.1.0",
+  "gladys_version": ">=5.3.0",
+  "categories": ["transport"],
+  "keywords": [
+    "new york",
+    "nyc",
+    "mta",
+    "subway",
+    "metro",
+    "nyct",
+    "staten island railway",
+    "manhattan",
+    "brooklyn",
+    "queens"
+  ],
+  "countries": ["US"],
+  "cover_image": "https://raw.githubusercontent.com/William-De71/gladys-mta-new-york/main/cover.jpg",
+  "transports": ["cloud"],
+  "config_schema": [
+    {
+      "key": "intro",
+      "type": "section",
+      "label": {
+        "en": "MTA open data",
+        "fr": "Open data MTA",
+        "de": "MTA Open Data",
+        "es": "Datos abiertos de la MTA"
+      },
+      "description": {
+        "en": "The departures and the service status come from the official open data of the MTA: the real-time feeds of the New York City subway and of the Staten Island Railway (GTFS-RT), and its service alerts. No account and no key: fill in your stations and lines below, then press \"Test the connection\".",
+        "fr": "Les départs et l’état du service viennent de l’open data officiel de la MTA : les flux temps réel du métro de New York et du Staten Island Railway (GTFS-RT), et ses alertes de service. Ni compte ni clé : renseignez vos stations et vos lignes ci-dessous, puis appuyez sur « Tester la connexion ».",
+        "de": "Die Abfahrten und die Betriebslage stammen aus den offiziellen Open Data der MTA: den Echtzeit-Feeds der New Yorker U-Bahn und der Staten Island Railway (GTFS-RT) und ihren Betriebsmeldungen. Kein Konto und kein Schlüssel: Trage unten deine Stationen und Linien ein und drücke dann „Verbindung testen“.",
+        "es": "Las salidas y el estado del servicio proceden de los datos abiertos oficiales de la MTA: los flujos en tiempo real del metro de Nueva York y del Staten Island Railway (GTFS-RT), y sus alertas de servicio. Sin cuenta ni clave: rellena tus estaciones y líneas abajo y pulsa «Probar la conexión»."
+      },
+      "links": [
+        {
+          "url": "https://api.mta.info/",
+          "label": {
+            "en": "MTA developer resources",
+            "fr": "Ressources développeurs MTA",
+            "de": "MTA-Entwicklerressourcen",
+            "es": "Recursos para desarrolladores de la MTA"
+          }
+        },
+        {
+          "url": "https://data.ny.gov/d/39hk-dx4f",
+          "label": {
+            "en": "List of the stations (data.ny.gov)",
+            "fr": "Liste des stations (data.ny.gov)",
+            "de": "Liste der Stationen (data.ny.gov)",
+            "es": "Lista de las estaciones (data.ny.gov)"
+          }
+        }
+      ]
+    },
+    {
+      "key": "station_1_section",
+      "type": "section",
+      "label": {
+        "en": "Station 1",
+        "fr": "Station 1",
+        "de": "Station 1",
+        "es": "Estación 1"
+      },
+      "description": {
+        "en": "The station where you take the subway: its next trains, from the real-time feeds of the MTA, like the countdown clocks. Type its name as written in the station (\"Times Sq-42 St\", \"Bedford Av\") or one of its stop ids (\"R16\"): the \"Find a station\" button gives them. A name shared by several stations (\"86 St\") needs its line. The line keeps only its trains (\"A\", \"7\", \"Q\"). The direction keeps one side (\"Uptown\", \"Downtown\", \"Manhattan\", the words written on the platform) or the destinations holding these words (\"Far Rockaway | Lefferts\").",
+        "fr": "La station où vous prenez le métro : ses prochains trains, d’après les flux temps réel de la MTA, comme les afficheurs des quais. Saisissez son nom tel qu’écrit dans la station (« Times Sq-42 St », « Bedford Av ») ou un de ses codes d’arrêt (« R16 ») : le bouton « Chercher une station » les donne. Un nom partagé par plusieurs stations (« 86 St ») demande sa ligne. La ligne ne garde que ses trains (« A », « 7 », « Q »). La direction garde un côté (« Uptown », « Downtown », « Manhattan », les mots écrits sur le quai) ou les destinations qui contiennent ces mots (« Far Rockaway | Lefferts »).",
+        "de": "Die Station, an der du die U-Bahn nimmst: ihre nächsten Züge laut den Echtzeit-Feeds der MTA, wie die Countdown-Anzeigen. Gib ihren Namen so ein, wie er in der Station steht („Times Sq-42 St“, „Bedford Av“), oder eine ihrer Haltestellen-IDs („R16“): Die Schaltfläche „Station suchen“ liefert sie. Ein Name mehrerer Stationen („86 St“) braucht seine Linie. Die Linie behält nur ihre Züge („A“, „7“, „Q“). Die Richtung behält eine Seite („Uptown“, „Downtown“, „Manhattan“, die Wörter am Bahnsteig) oder die Ziele mit diesen Wörtern („Far Rockaway | Lefferts“).",
+        "es": "La estación donde tomas el metro: sus próximos trenes, según los flujos en tiempo real de la MTA, como los relojes de cuenta atrás. Escribe su nombre tal como aparece en la estación («Times Sq-42 St», «Bedford Av») o uno de sus códigos de parada («R16»): el botón «Buscar una estación» los da. Un nombre compartido por varias estaciones («86 St») necesita su línea. La línea solo conserva sus trenes («A», «7», «Q»). La dirección conserva un lado («Uptown», «Downtown», «Manhattan», las palabras escritas en el andén) o los destinos que contienen estas palabras («Far Rockaway | Lefferts»)."
+      }
+    },
+    {
+      "key": "station_1",
+      "type": "string",
+      "label": {
+        "en": "Station",
+        "fr": "Station",
+        "de": "Station",
+        "es": "Estación"
+      },
+      "placeholder": {
+        "en": "Times Sq-42 St",
+        "fr": "Times Sq-42 St",
+        "de": "Times Sq-42 St",
+        "es": "Times Sq-42 St"
+      },
+      "required": false
+    },
+    {
+      "key": "station_1_line",
+      "type": "string",
+      "label": {
+        "en": "Line",
+        "fr": "Ligne",
+        "de": "Linie",
+        "es": "Línea"
+      },
+      "description": {
+        "en": "Empty for every line.",
+        "fr": "Vide pour toutes les lignes.",
+        "de": "Leer für alle Linien.",
+        "es": "Vacío para todas las líneas."
+      },
+      "placeholder": {
+        "en": "A",
+        "fr": "A",
+        "de": "A",
+        "es": "A"
+      },
+      "required": false
+    },
+    {
+      "key": "station_1_direction",
+      "type": "string",
+      "label": {
+        "en": "Direction",
+        "fr": "Direction",
+        "de": "Richtung",
+        "es": "Dirección"
+      },
+      "description": {
+        "en": "Uptown, Downtown, or words of the destination. Empty for both directions.",
+        "fr": "Uptown, Downtown, ou des mots de la destination. Vide pour les deux sens.",
+        "de": "Uptown, Downtown oder Wörter des Ziels. Leer für beide Richtungen.",
+        "es": "Uptown, Downtown, o palabras del destino. Vacío para ambos sentidos."
+      },
+      "placeholder": {
+        "en": "Uptown",
+        "fr": "Uptown",
+        "de": "Uptown",
+        "es": "Uptown"
+      },
+      "required": false
+    },
+    {
+      "key": "station_2_section",
+      "type": "section",
+      "label": {
+        "en": "Station 2",
+        "fr": "Station 2",
+        "de": "Station 2",
+        "es": "Estación 2"
+      }
+    },
+    {
+      "key": "station_2",
+      "type": "string",
+      "label": {
+        "en": "Station",
+        "fr": "Station",
+        "de": "Station",
+        "es": "Estación"
+      },
+      "placeholder": {
+        "en": "Bedford Av",
+        "fr": "Bedford Av",
+        "de": "Bedford Av",
+        "es": "Bedford Av"
+      },
+      "required": false
+    },
+    {
+      "key": "station_2_line",
+      "type": "string",
+      "label": {
+        "en": "Line",
+        "fr": "Ligne",
+        "de": "Linie",
+        "es": "Línea"
+      },
+      "description": {
+        "en": "Empty for every line.",
+        "fr": "Vide pour toutes les lignes.",
+        "de": "Leer für alle Linien.",
+        "es": "Vacío para todas las líneas."
+      },
+      "placeholder": {
+        "en": "L",
+        "fr": "L",
+        "de": "L",
+        "es": "L"
+      },
+      "required": false
+    },
+    {
+      "key": "station_2_direction",
+      "type": "string",
+      "label": {
+        "en": "Direction",
+        "fr": "Direction",
+        "de": "Richtung",
+        "es": "Dirección"
+      },
+      "description": {
+        "en": "Uptown, Downtown, or words of the destination. Empty for both directions.",
+        "fr": "Uptown, Downtown, ou des mots de la destination. Vide pour les deux sens.",
+        "de": "Uptown, Downtown oder Wörter des Ziels. Leer für beide Richtungen.",
+        "es": "Uptown, Downtown, o palabras del destino. Vacío para ambos sentidos."
+      },
+      "placeholder": {
+        "en": "Manhattan",
+        "fr": "Manhattan",
+        "de": "Manhattan",
+        "es": "Manhattan"
+      },
+      "required": false
+    },
+    {
+      "key": "station_3_section",
+      "type": "section",
+      "label": {
+        "en": "Station 3",
+        "fr": "Station 3",
+        "de": "Station 3",
+        "es": "Estación 3"
+      },
+      "description": {
+        "en": "More stations (a home, a workplace, a school…): the \"Add a station\" button, under the form, follows up to 10 more, \"List the stations\" shows them all, numbered, and \"Remove a station\" stops following one. The trains of every station come in one request per group of lines.",
+        "fr": "D’autres stations (domicile, travail, école…) : le bouton « Ajouter une station », sous le formulaire, en suit jusqu’à 10 de plus, « Lister les stations » les montre toutes, numérotées, et « Retirer une station » arrête d’en suivre une. Les trains de toutes les stations arrivent en une requête par groupe de lignes.",
+        "de": "Weitere Stationen (Zuhause, Arbeit, Schule…): Die Schaltfläche „Station hinzufügen“ unter dem Formular verfolgt bis zu 10 weitere, „Stationen auflisten“ zeigt alle nummeriert, und „Station entfernen“ beendet die Verfolgung einer Station. Die Züge aller Stationen kommen mit einer Anfrage pro Liniengruppe.",
+        "es": "Más estaciones (casa, trabajo, colegio…): el botón «Añadir una estación», bajo el formulario, sigue hasta 10 más, «Listar las estaciones» las muestra todas, numeradas, y «Quitar una estación» deja de seguir una. Los trenes de todas las estaciones llegan en una petición por grupo de líneas."
+      }
+    },
+    {
+      "key": "station_3",
+      "type": "string",
+      "label": {
+        "en": "Station",
+        "fr": "Station",
+        "de": "Station",
+        "es": "Estación"
+      },
+      "placeholder": {
+        "en": "86 St (Q)",
+        "fr": "86 St (Q)",
+        "de": "86 St (Q)",
+        "es": "86 St (Q)"
+      },
+      "required": false
+    },
+    {
+      "key": "station_3_line",
+      "type": "string",
+      "label": {
+        "en": "Line",
+        "fr": "Ligne",
+        "de": "Linie",
+        "es": "Línea"
+      },
+      "description": {
+        "en": "Empty for every line.",
+        "fr": "Vide pour toutes les lignes.",
+        "de": "Leer für alle Linien.",
+        "es": "Vacío para todas las líneas."
+      },
+      "placeholder": {
+        "en": "Q",
+        "fr": "Q",
+        "de": "Q",
+        "es": "Q"
+      },
+      "required": false
+    },
+    {
+      "key": "station_3_direction",
+      "type": "string",
+      "label": {
+        "en": "Direction",
+        "fr": "Direction",
+        "de": "Richtung",
+        "es": "Dirección"
+      },
+      "description": {
+        "en": "Uptown, Downtown, or words of the destination. Empty for both directions.",
+        "fr": "Uptown, Downtown, ou des mots de la destination. Vide pour les deux sens.",
+        "de": "Uptown, Downtown oder Wörter des Ziels. Leer für beide Richtungen.",
+        "es": "Uptown, Downtown, o palabras del destino. Vacío para ambos sentidos."
+      },
+      "placeholder": {
+        "en": "Downtown",
+        "fr": "Downtown",
+        "de": "Downtown",
+        "es": "Downtown"
+      },
+      "required": false
+    },
+    {
+      "key": "lines_section",
+      "type": "section",
+      "label": {
+        "en": "Service status of the lines",
+        "fr": "État du service des lignes",
+        "de": "Betriebslage der Linien",
+        "es": "Estado del servicio de las líneas"
+      },
+      "description": {
+        "en": "The lines whose service status you follow: a device per line, with its state (good service, notice, planned work, delays and changes, suspended) worked out from the alerts of the MTA, and its alerts under way, read every 5 minutes.",
+        "fr": "Les lignes dont vous suivez l’état du service : un appareil par ligne, avec son état (service normal, information, travaux programmés, service perturbé, service suspendu) déduit des alertes de la MTA, et ses alertes en cours, lues toutes les 5 minutes.",
+        "de": "Die Linien, deren Betriebslage du verfolgst: ein Gerät pro Linie, mit ihrem Zustand (normaler Betrieb, Hinweis, geplante Bauarbeiten, gestörter Betrieb, Betrieb eingestellt) aus den Meldungen der MTA und ihren aktuellen Meldungen, alle 5 Minuten gelesen.",
+        "es": "Las líneas cuyo estado de servicio sigues: un dispositivo por línea, con su estado (servicio normal, aviso, obras programadas, servicio alterado, servicio suspendido) deducido de las alertas de la MTA, y sus alertas en curso, leídas cada 5 minutos."
+      }
+    },
+    {
+      "key": "lines",
+      "type": "string",
+      "label": {
+        "en": "Followed lines",
+        "fr": "Lignes suivies",
+        "de": "Verfolgte Linien",
+        "es": "Líneas seguidas"
+      },
+      "description": {
+        "en": "Up to 6, separated by commas: \"A\", \"7\", \"7X\", \"S 42 St\", \"SIR\".",
+        "fr": "Jusqu’à 6, séparées par des virgules : « A », « 7 », « 7X », « S 42 St », « SIR ».",
+        "de": "Bis zu 6, durch Kommas getrennt: „A“, „7“, „7X“, „S 42 St“, „SIR“.",
+        "es": "Hasta 6, separadas por comas: «A», «7», «7X», «S 42 St», «SIR»."
+      },
+      "placeholder": {
+        "en": "A, F, L, 7",
+        "fr": "A, F, L, 7",
+        "de": "A, F, L, 7",
+        "es": "A, F, L, 7"
+      },
+      "required": false
+    },
+    {
+      "key": "options_section",
+      "type": "section",
+      "label": {
+        "en": "Options",
+        "fr": "Options",
+        "de": "Optionen",
+        "es": "Opciones"
+      }
+    },
+    {
+      "key": "interval",
+      "type": "select",
+      "label": {
+        "en": "Reading of the real time",
+        "fr": "Lecture du temps réel",
+        "de": "Lesen der Echtzeit",
+        "es": "Lectura del tiempo real"
+      },
+      "description": {
+        "en": "How often the trains of the followed stations are read: one request per group of lines (the A C E, the B D F M…). While no station announces a train in the next half hour, every 10 minutes.",
+        "fr": "À quelle fréquence les trains des stations suivies sont lus : une requête par groupe de lignes (A C E, B D F M…). Quand aucune station n’annonce de train dans la demi-heure, toutes les 10 minutes.",
+        "de": "Wie oft die Züge der verfolgten Stationen gelesen werden: eine Anfrage pro Liniengruppe (A C E, B D F M…). Solange keine Station in der nächsten halben Stunde einen Zug ankündigt, alle 10 Minuten.",
+        "es": "Con qué frecuencia se leen los trenes de las estaciones seguidas: una petición por grupo de líneas (A C E, B D F M…). Mientras ninguna estación anuncie un tren en la próxima media hora, cada 10 minutos."
+      },
+      "options": [
+        {
+          "value": "30",
+          "label": {
+            "en": "Every 30 seconds",
+            "fr": "Toutes les 30 secondes",
+            "de": "Alle 30 Sekunden",
+            "es": "Cada 30 segundos"
+          }
+        },
+        {
+          "value": "60",
+          "label": {
+            "en": "Every minute",
+            "fr": "Toutes les minutes",
+            "de": "Jede Minute",
+            "es": "Cada minuto"
+          }
+        },
+        {
+          "value": "120",
+          "label": {
+            "en": "Every 2 minutes",
+            "fr": "Toutes les 2 minutes",
+            "de": "Alle 2 Minuten",
+            "es": "Cada 2 minutos"
+          }
+        },
+        {
+          "value": "300",
+          "label": {
+            "en": "Every 5 minutes",
+            "fr": "Toutes les 5 minutes",
+            "de": "Alle 5 Minuten",
+            "es": "Cada 5 minutos"
+          }
+        }
+      ],
+      "default": "60",
+      "required": false
+    },
+    {
+      "key": "language",
+      "type": "select",
+      "label": {
+        "en": "Language of the texts",
+        "fr": "Langue des textes",
+        "de": "Sprache der Texte",
+        "es": "Idioma de los textos"
+      },
+      "description": {
+        "en": "Names of the devices, summaries and outputs of the scenes. Automatic: the language of your dashboard, as soon as an MTA widget has been shown. Station names and alerts stay in English.",
+        "fr": "Noms des appareils, résumés et sorties des scènes. Automatique : la langue de votre tableau de bord, dès qu’un widget MTA a été affiché. Les noms de stations et les alertes restent en anglais.",
+        "de": "Namen der Geräte, Zusammenfassungen und Ausgaben der Szenen. Automatisch: die Sprache deines Dashboards, sobald ein MTA-Widget angezeigt wurde. Stationsnamen und Meldungen bleiben auf Englisch.",
+        "es": "Nombres de los dispositivos, resúmenes y salidas de las escenas. Automático: el idioma de tu panel, en cuanto se haya mostrado un widget de la MTA. Los nombres de estaciones y las alertas quedan en inglés."
+      },
+      "options": [
+        {
+          "value": "auto",
+          "label": {
+            "en": "Automatic",
+            "fr": "Automatique",
+            "de": "Automatisch",
+            "es": "Automático"
+          }
+        },
+        {
+          "value": "en",
+          "label": {
+            "en": "English",
+            "fr": "English",
+            "de": "English",
+            "es": "English"
+          }
+        },
+        {
+          "value": "fr",
+          "label": {
+            "en": "Français",
+            "fr": "Français",
+            "de": "Français",
+            "es": "Français"
+          }
+        },
+        {
+          "value": "de",
+          "label": {
+            "en": "Deutsch",
+            "fr": "Deutsch",
+            "de": "Deutsch",
+            "es": "Deutsch"
+          }
+        },
+        {
+          "value": "es",
+          "label": {
+            "en": "Español",
+            "fr": "Español",
+            "de": "Español",
+            "es": "Español"
+          }
+        }
+      ],
+      "default": "auto",
+      "required": false
+    }
+  ],
+  "actions": [
+    {
+      "key": "test_connection",
+      "label": {
+        "en": "Test the connection",
+        "fr": "Tester la connexion",
+        "de": "Verbindung testen",
+        "es": "Probar la conexión"
+      },
+      "description": {
+        "en": "Reads the list of the stations again, finds your stations and lines and reads them right away.",
+        "fr": "Relit la liste des stations, retrouve vos stations et vos lignes et les lit aussitôt.",
+        "de": "Liest die Liste der Stationen erneut, findet deine Stationen und Linien und liest sie sofort.",
+        "es": "Vuelve a leer la lista de estaciones, encuentra tus estaciones y líneas y las lee al momento."
+      },
+      "timeout_seconds": 60
+    },
+    {
+      "key": "search_station",
+      "label": {
+        "en": "Find a station",
+        "fr": "Chercher une station",
+        "de": "Station suchen",
+        "es": "Buscar una estación"
+      },
+      "description": {
+        "en": "Gives the stations holding these words, with their borough, their stop ids and their lines.",
+        "fr": "Donne les stations qui contiennent ces mots, avec leur arrondissement, leurs codes d’arrêt et leurs lignes.",
+        "de": "Liefert die Stationen mit diesen Wörtern, mit Bezirk, Haltestellen-IDs und Linien.",
+        "es": "Da las estaciones que contienen estas palabras, con su distrito, sus códigos de parada y sus líneas."
+      },
+      "timeout_seconds": 30,
+      "fields": [
+        {
+          "key": "query",
+          "type": "string",
+          "label": {
+            "en": "Station name",
+            "fr": "Nom de la station",
+            "de": "Name der Station",
+            "es": "Nombre de la estación"
+          },
+          "placeholder": {
+            "en": "86 st",
+            "fr": "86 st",
+            "de": "86 st",
+            "es": "86 st"
+          },
+          "required": true
+        }
+      ]
+    },
+    {
+      "key": "add_station",
+      "label": {
+        "en": "Add a station",
+        "fr": "Ajouter une station",
+        "de": "Station hinzufügen",
+        "es": "Añadir una estación"
+      },
+      "description": {
+        "en": "Follows one more station, beyond the three of the form: up to 10 more. Its device is then offered in the Discover tab.",
+        "fr": "Suit une station de plus, au-delà des trois du formulaire : jusqu’à 10 de plus. Son appareil est ensuite proposé dans l’onglet Découvrir.",
+        "de": "Verfolgt eine weitere Station über die drei des Formulars hinaus: bis zu 10 weitere. Ihr Gerät wird danach im Tab Entdecken angeboten.",
+        "es": "Sigue una estación más, además de las tres del formulario: hasta 10 más. Su dispositivo se ofrece después en la pestaña Descubrir."
+      },
+      "timeout_seconds": 60,
+      "fields": [
+        {
+          "key": "station",
+          "type": "string",
+          "label": {
+            "en": "Station",
+            "fr": "Station",
+            "de": "Station",
+            "es": "Estación"
+          },
+          "description": {
+            "en": "Its name, or a stop id (\"Find a station\").",
+            "fr": "Son nom, ou un code d’arrêt (« Chercher une station »).",
+            "de": "Ihr Name oder eine Haltestellen-ID („Station suchen“).",
+            "es": "Su nombre, o un código de parada («Buscar una estación»)."
+          },
+          "placeholder": {
+            "en": "Grand Central-42 St",
+            "fr": "Grand Central-42 St",
+            "de": "Grand Central-42 St",
+            "es": "Grand Central-42 St"
+          },
+          "required": true
+        },
+        {
+          "key": "line",
+          "type": "string",
+          "label": {
+            "en": "Line",
+            "fr": "Ligne",
+            "de": "Linie",
+            "es": "Línea"
+          },
+          "description": {
+            "en": "Empty for every line.",
+            "fr": "Vide pour toutes les lignes.",
+            "de": "Leer für alle Linien.",
+            "es": "Vacío para todas las líneas."
+          },
+          "placeholder": {
+            "en": "7",
+            "fr": "7",
+            "de": "7",
+            "es": "7"
+          },
+          "required": false
+        },
+        {
+          "key": "direction",
+          "type": "string",
+          "label": {
+            "en": "Direction",
+            "fr": "Direction",
+            "de": "Richtung",
+            "es": "Dirección"
+          },
+          "description": {
+            "en": "Uptown, Downtown, or words of the destination. Empty for both directions.",
+            "fr": "Uptown, Downtown, ou des mots de la destination. Vide pour les deux sens.",
+            "de": "Uptown, Downtown oder Wörter des Ziels. Leer für beide Richtungen.",
+            "es": "Uptown, Downtown, o palabras del destino. Vacío para ambos sentidos."
+          },
+          "placeholder": {
+            "en": "Queens",
+            "fr": "Queens",
+            "de": "Queens",
+            "es": "Queens"
+          },
+          "required": false
+        }
+      ]
+    },
+    {
+      "key": "remove_station",
+      "label": {
+        "en": "Remove a station",
+        "fr": "Retirer une station",
+        "de": "Station entfernen",
+        "es": "Quitar una estación"
+      },
+      "description": {
+        "en": "Stops following a station added with the button. Its device stays in Gladys until you delete it.",
+        "fr": "Arrête de suivre une station ajoutée avec le bouton. Son appareil reste dans Gladys jusqu’à ce que vous le supprimiez.",
+        "de": "Beendet das Verfolgen einer mit der Schaltfläche hinzugefügten Station. Ihr Gerät bleibt in Gladys, bis du es löschst.",
+        "es": "Deja de seguir una estación añadida con el botón. Su dispositivo sigue en Gladys hasta que lo borres."
+      },
+      "timeout_seconds": 30,
+      "fields": [
+        {
+          "key": "station",
+          "type": "string",
+          "label": {
+            "en": "Station",
+            "fr": "Station",
+            "de": "Station",
+            "es": "Estación"
+          },
+          "description": {
+            "en": "Its number in \"List the stations\", or its name.",
+            "fr": "Son numéro dans « Lister les stations », ou son nom.",
+            "de": "Ihre Nummer in „Stationen auflisten“ oder ihr Name.",
+            "es": "Su número en «Listar las estaciones», o su nombre."
+          },
+          "placeholder": {
+            "en": "4",
+            "fr": "4",
+            "de": "4",
+            "es": "4"
+          },
+          "required": true
+        }
+      ]
+    },
+    {
+      "key": "list_stations",
+      "label": {
+        "en": "List the stations",
+        "fr": "Lister les stations",
+        "de": "Stationen auflisten",
+        "es": "Listar las estaciones"
+      },
+      "description": {
+        "en": "Shows every followed station, numbered: the three of the form, then the ones added with the button.",
+        "fr": "Montre toutes les stations suivies, numérotées : les trois du formulaire, puis celles ajoutées avec le bouton.",
+        "de": "Zeigt alle verfolgten Stationen nummeriert: die drei des Formulars, dann die mit der Schaltfläche hinzugefügten.",
+        "es": "Muestra todas las estaciones seguidas, numeradas: las tres del formulario y luego las añadidas con el botón."
+      },
+      "timeout_seconds": 10
+    },
+    {
+      "key": "diagnostic",
+      "label": {
+        "en": "Diagnostic",
+        "fr": "Diagnostic",
+        "de": "Diagnose",
+        "es": "Diagnóstico"
+      },
+      "description": {
+        "en": "Writes to the Logs tab the stations and lines found, the feeds read, the last departures, the last errors and the requests made, for a report on GitHub or the forum.",
+        "fr": "Écrit dans l’onglet Journaux les stations et lignes trouvées, les flux lus, les derniers départs, les dernières erreurs et les requêtes faites, pour un signalement sur GitHub ou le forum.",
+        "de": "Schreibt in den Tab Protokolle die gefundenen Stationen und Linien, die gelesenen Feeds, die letzten Abfahrten, die letzten Fehler und die gestellten Anfragen, für eine Meldung auf GitHub oder im Forum.",
+        "es": "Escribe en la pestaña Registros las estaciones y líneas encontradas, los flujos leídos, las últimas salidas, los últimos errores y las peticiones hechas, para un aviso en GitHub o en el foro."
+      },
+      "timeout_seconds": 10
+    }
+  ],
+  "scene_triggers": [
+    {
+      "key": "departure_soon",
+      "label": {
+        "en": "MTA: train soon",
+        "fr": "MTA : train bientôt",
+        "de": "MTA: Zug bald",
+        "es": "MTA: tren en breve"
+      },
+      "description": {
+        "en": "A train at a followed station leaves in N minutes, counted on the real-time feed.",
+        "fr": "Un train à une station suivie part dans N minutes, compté sur le flux temps réel.",
+        "de": "Ein Zug an einer verfolgten Station fährt in N Minuten, gezählt nach dem Echtzeit-Feed.",
+        "es": "Un tren en una estación seguida sale dentro de N minutos, contado según el flujo en tiempo real."
+      },
+      "fields": [
+        {
+          "key": "station",
+          "type": "select",
+          "source": "devices",
+          "label": {
+            "en": "Station",
+            "fr": "Station",
+            "de": "Station",
+            "es": "Estación"
+          },
+          "description": {
+            "en": "A station device of the integration. Leave empty for any station.",
+            "fr": "Un appareil station de l’intégration. Laissez vide pour n’importe quelle station.",
+            "de": "Ein Stationsgerät der Integration. Leer lassen für jede Station.",
+            "es": "Un dispositivo estación de la integración. Déjalo vacío para cualquier estación."
+          },
+          "required": false
+        },
+        {
+          "key": "minutes",
+          "type": "select",
+          "label": {
+            "en": "Leaves in",
+            "fr": "Part dans",
+            "de": "Fährt in",
+            "es": "Sale dentro de"
+          },
+          "options": [
+            {
+              "value": "2",
+              "label": {
+                "en": "2 min",
+                "fr": "2 min",
+                "de": "2 min",
+                "es": "2 min"
+              }
+            },
+            {
+              "value": "3",
+              "label": {
+                "en": "3 min",
+                "fr": "3 min",
+                "de": "3 min",
+                "es": "3 min"
+              }
+            },
+            {
+              "value": "5",
+              "label": {
+                "en": "5 min",
+                "fr": "5 min",
+                "de": "5 min",
+                "es": "5 min"
+              }
+            },
+            {
+              "value": "10",
+              "label": {
+                "en": "10 min",
+                "fr": "10 min",
+                "de": "10 min",
+                "es": "10 min"
+              }
+            },
+            {
+              "value": "15",
+              "label": {
+                "en": "15 min",
+                "fr": "15 min",
+                "de": "15 min",
+                "es": "15 min"
+              }
+            },
+            {
+              "value": "20",
+              "label": {
+                "en": "20 min",
+                "fr": "20 min",
+                "de": "20 min",
+                "es": "20 min"
+              }
+            }
+          ],
+          "required": true
+        }
+      ],
+      "variables": [
+        {
+          "key": "station_name",
+          "type": "string",
+          "label": {
+            "en": "Station",
+            "fr": "Station",
+            "de": "Station",
+            "es": "Estación"
+          }
+        },
+        {
+          "key": "line",
+          "type": "string",
+          "label": {
+            "en": "Line",
+            "fr": "Ligne",
+            "de": "Linie",
+            "es": "Línea"
+          }
+        },
+        {
+          "key": "destination",
+          "type": "string",
+          "label": {
+            "en": "Destination",
+            "fr": "Destination",
+            "de": "Ziel",
+            "es": "Destino"
+          }
+        },
+        {
+          "key": "direction",
+          "type": "string",
+          "label": {
+            "en": "Direction",
+            "fr": "Direction",
+            "de": "Richtung",
+            "es": "Dirección"
+          },
+          "description": {
+            "en": "The words of its side: \"Uptown\", \"Manhattan\".",
+            "fr": "Les mots de son côté : « Uptown », « Manhattan ».",
+            "de": "Die Wörter ihrer Seite: „Uptown“, „Manhattan“.",
+            "es": "Las palabras de su lado: «Uptown», «Manhattan»."
+          }
+        },
+        {
+          "key": "time",
+          "type": "string",
+          "label": {
+            "en": "Expected time (HH:MM, New York)",
+            "fr": "Heure estimée (HH:MM, New York)",
+            "de": "Erwartete Zeit (HH:MM, New York)",
+            "es": "Hora estimada (HH:MM, Nueva York)"
+          }
+        },
+        {
+          "key": "scheduled",
+          "type": "boolean",
+          "label": {
+            "en": "Scheduled only",
+            "fr": "Seulement prévu",
+            "de": "Nur geplant",
+            "es": "Solo previsto"
+          },
+          "description": {
+            "en": "True when no train is put on the trip yet: it may not run.",
+            "fr": "Vrai quand aucun train n’est encore affecté au trajet : il pourrait ne pas circuler.",
+            "de": "Wahr, solange der Fahrt noch kein Zug zugeteilt ist: Sie könnte ausfallen.",
+            "es": "Verdadero si aún no hay tren asignado al trayecto: podría no circular."
+          }
+        },
+        {
+          "key": "summary",
+          "type": "string",
+          "label": {
+            "en": "Summary",
+            "fr": "Résumé",
+            "de": "Zusammenfassung",
+            "es": "Resumen"
+          },
+          "description": {
+            "en": "A sentence ready to put in a message.",
+            "fr": "Une phrase prête à mettre dans un message.",
+            "de": "Ein Satz, bereit für eine Nachricht.",
+            "es": "Una frase lista para poner en un mensaje."
+          }
+        }
+      ]
+    },
+    {
+      "key": "line_disrupted",
+      "label": {
+        "en": "MTA: line disrupted",
+        "fr": "MTA : ligne perturbée",
+        "de": "MTA: Linie gestört",
+        "es": "MTA: línea alterada"
+      },
+      "description": {
+        "en": "A followed line gets unplanned delays, changes or a suspension (an alert of the MTA under way). Planned work does not fire it.",
+        "fr": "Une ligne suivie subit des retards, des changements ou une suspension imprévus (une alerte de la MTA en cours). Les travaux programmés ne le déclenchent pas.",
+        "de": "Eine verfolgte Linie hat ungeplante Verspätungen, Änderungen oder eine Einstellung (eine laufende Meldung der MTA). Geplante Bauarbeiten lösen es nicht aus.",
+        "es": "Una línea seguida sufre retrasos, cambios o una suspensión imprevistos (una alerta de la MTA en curso). Las obras programadas no lo activan."
+      },
+      "fields": [
+        {
+          "key": "line",
+          "type": "select",
+          "source": "devices",
+          "label": {
+            "en": "Line",
+            "fr": "Ligne",
+            "de": "Linie",
+            "es": "Línea"
+          },
+          "description": {
+            "en": "A line device of the integration. Leave empty for any line.",
+            "fr": "Un appareil ligne de l’intégration. Laissez vide pour n’importe quelle ligne.",
+            "de": "Ein Liniengerät der Integration. Leer lassen für jede Linie.",
+            "es": "Un dispositivo línea de la integración. Déjalo vacío para cualquier línea."
+          },
+          "required": false
+        }
+      ],
+      "variables": [
+        {
+          "key": "line_name",
+          "type": "string",
+          "label": {
+            "en": "Line",
+            "fr": "Ligne",
+            "de": "Linie",
+            "es": "Línea"
+          },
+          "description": {
+            "en": "\"A train\", \"42 St Shuttle\".",
+            "fr": "« Ligne A », « 42 St Shuttle ».",
+            "de": "„Linie A“, „42 St Shuttle“.",
+            "es": "«Línea A», «42 St Shuttle»."
+          }
+        },
+        {
+          "key": "state",
+          "type": "string",
+          "label": {
+            "en": "State (code)",
+            "fr": "État (code)",
+            "de": "Zustand (Code)",
+            "es": "Estado (código)"
+          },
+          "description": {
+            "en": "disrupted, suspended",
+            "fr": "disrupted, suspended",
+            "de": "disrupted, suspended",
+            "es": "disrupted, suspended"
+          }
+        },
+        {
+          "key": "title",
+          "type": "string",
+          "label": {
+            "en": "Title of the alert",
+            "fr": "Titre de l’alerte",
+            "de": "Titel der Meldung",
+            "es": "Título de la alerta"
+          },
+          "description": {
+            "en": "Its first sentence, in English.",
+            "fr": "Sa première phrase, en anglais.",
+            "de": "Ihr erster Satz, auf Englisch.",
+            "es": "Su primera frase, en inglés."
+          }
+        },
+        {
+          "key": "message",
+          "type": "string",
+          "label": {
+            "en": "Text of the alert",
+            "fr": "Texte de l’alerte",
+            "de": "Text der Meldung",
+            "es": "Texto de la alerta"
+          }
+        },
+        {
+          "key": "alert_type",
+          "type": "string",
+          "label": {
+            "en": "Type given by the MTA",
+            "fr": "Type donné par la MTA",
+            "de": "Art laut MTA",
+            "es": "Tipo dado por la MTA"
+          },
+          "description": {
+            "en": "\"Delays\", \"Planned - Part Suspended\", \"Station Notice\"…",
+            "fr": "\"Delays\", \"Planned - Part Suspended\", \"Station Notice\"…",
+            "de": "\"Delays\", \"Planned - Part Suspended\", \"Station Notice\"…",
+            "es": "\"Delays\", \"Planned - Part Suspended\", \"Station Notice\"…"
+          }
+        },
+        {
+          "key": "hours",
+          "type": "string",
+          "label": {
+            "en": "Hours (as written by the MTA)",
+            "fr": "Horaires (écrits par la MTA)",
+            "de": "Zeiten (von der MTA geschrieben)",
+            "es": "Horario (escrito por la MTA)"
+          },
+          "description": {
+            "en": "\"Nov 6 - 8, Fri 9:45 PM to Sun 10:00 PM\"",
+            "fr": "\"Nov 6 - 8, Fri 9:45 PM to Sun 10:00 PM\"",
+            "de": "\"Nov 6 - 8, Fri 9:45 PM to Sun 10:00 PM\"",
+            "es": "\"Nov 6 - 8, Fri 9:45 PM to Sun 10:00 PM\""
+          }
+        },
+        {
+          "key": "start",
+          "type": "string",
+          "label": {
+            "en": "Start (MM/DD HH:MM)",
+            "fr": "Début (MM/JJ HH:MM)",
+            "de": "Beginn (MM/TT HH:MM)",
+            "es": "Inicio (MM/DD HH:MM)"
+          }
+        },
+        {
+          "key": "end",
+          "type": "string",
+          "label": {
+            "en": "End (MM/DD HH:MM)",
+            "fr": "Fin (MM/JJ HH:MM)",
+            "de": "Ende (MM/TT HH:MM)",
+            "es": "Fin (MM/DD HH:MM)"
+          }
+        },
+        {
+          "key": "summary",
+          "type": "string",
+          "label": {
+            "en": "Summary",
+            "fr": "Résumé",
+            "de": "Zusammenfassung",
+            "es": "Resumen"
+          },
+          "description": {
+            "en": "A sentence ready to put in a message.",
+            "fr": "Une phrase prête à mettre dans un message.",
+            "de": "Ein Satz, bereit für eine Nachricht.",
+            "es": "Una frase lista para poner en un mensaje."
+          }
+        }
+      ]
+    },
+    {
+      "key": "line_restored",
+      "label": {
+        "en": "MTA: back to good service",
+        "fr": "MTA : fin de perturbation",
+        "de": "MTA: wieder normal",
+        "es": "MTA: fin de la incidencia"
+      },
+      "description": {
+        "en": "A followed line that had unplanned delays or a suspension is back to good service (or planned work only).",
+        "fr": "Une ligne suivie qui avait des retards ou une suspension imprévus revient au service normal (ou aux seuls travaux programmés).",
+        "de": "Eine verfolgte Linie mit ungeplanten Verspätungen oder Einstellung ist wieder im normalen Betrieb (oder nur noch geplante Bauarbeiten).",
+        "es": "Una línea seguida que tenía retrasos o una suspensión imprevistos vuelve al servicio normal (o solo a obras programadas)."
+      },
+      "fields": [
+        {
+          "key": "line",
+          "type": "select",
+          "source": "devices",
+          "label": {
+            "en": "Line",
+            "fr": "Ligne",
+            "de": "Linie",
+            "es": "Línea"
+          },
+          "description": {
+            "en": "A line device of the integration. Leave empty for any line.",
+            "fr": "Un appareil ligne de l’intégration. Laissez vide pour n’importe quelle ligne.",
+            "de": "Ein Liniengerät der Integration. Leer lassen für jede Linie.",
+            "es": "Un dispositivo línea de la integración. Déjalo vacío para cualquier línea."
+          },
+          "required": false
+        }
+      ],
+      "variables": [
+        {
+          "key": "line_name",
+          "type": "string",
+          "label": {
+            "en": "Line",
+            "fr": "Ligne",
+            "de": "Linie",
+            "es": "Línea"
+          },
+          "description": {
+            "en": "\"A train\", \"42 St Shuttle\".",
+            "fr": "« Ligne A », « 42 St Shuttle ».",
+            "de": "„Linie A“, „42 St Shuttle“.",
+            "es": "«Línea A», «42 St Shuttle»."
+          }
+        },
+        {
+          "key": "state",
+          "type": "string",
+          "label": {
+            "en": "New state",
+            "fr": "Nouvel état",
+            "de": "Neuer Zustand",
+            "es": "Nuevo estado"
+          },
+          "description": {
+            "en": "normal, info, planned",
+            "fr": "normal, info, planned",
+            "de": "normal, info, planned",
+            "es": "normal, info, planned"
+          }
+        },
+        {
+          "key": "summary",
+          "type": "string",
+          "label": {
+            "en": "Summary",
+            "fr": "Résumé",
+            "de": "Zusammenfassung",
+            "es": "Resumen"
+          },
+          "description": {
+            "en": "A sentence ready to put in a message.",
+            "fr": "Une phrase prête à mettre dans un message.",
+            "de": "Ein Satz, bereit für eine Nachricht.",
+            "es": "Una frase lista para poner en un mensaje."
+          }
+        }
+      ]
+    },
+    {
+      "key": "service_alert",
+      "label": {
+        "en": "MTA: new service alert",
+        "fr": "MTA : nouvelle alerte",
+        "de": "MTA: neue Meldung",
+        "es": "MTA: nueva alerta"
+      },
+      "description": {
+        "en": "The MTA publishes a new alert about a followed line: delays, planned work, notice, under way or coming.",
+        "fr": "La MTA publie une nouvelle alerte sur une ligne suivie : retards, travaux programmés, information, en cours ou à venir.",
+        "de": "Die MTA veröffentlicht eine neue Meldung zu einer verfolgten Linie: Verspätungen, geplante Bauarbeiten, Hinweis, aktuell oder demnächst.",
+        "es": "La MTA publica una nueva alerta sobre una línea seguida: retrasos, obras programadas, aviso, en curso o próxima."
+      },
+      "fields": [
+        {
+          "key": "line",
+          "type": "select",
+          "source": "devices",
+          "label": {
+            "en": "Line",
+            "fr": "Ligne",
+            "de": "Linie",
+            "es": "Línea"
+          },
+          "description": {
+            "en": "A line device of the integration. Leave empty for any line.",
+            "fr": "Un appareil ligne de l’intégration. Laissez vide pour n’importe quelle ligne.",
+            "de": "Ein Liniengerät der Integration. Leer lassen für jede Linie.",
+            "es": "Un dispositivo línea de la integración. Déjalo vacío para cualquier línea."
+          },
+          "required": false
+        },
+        {
+          "key": "kind",
+          "type": "multi_select",
+          "label": {
+            "en": "Kind",
+            "fr": "Type",
+            "de": "Art",
+            "es": "Tipo"
+          },
+          "description": {
+            "en": "Leave empty for every kind.",
+            "fr": "Laissez vide pour tous les types.",
+            "de": "Leer lassen für alle Arten.",
+            "es": "Déjalo vacío para todos los tipos."
+          },
+          "options": [
+            {
+              "value": "info",
+              "label": {
+                "en": "Notice",
+                "fr": "Information",
+                "de": "Hinweis",
+                "es": "Aviso"
+              }
+            },
+            {
+              "value": "planned",
+              "label": {
+                "en": "Planned work",
+                "fr": "Travaux programmés",
+                "de": "Geplante Bauarbeiten",
+                "es": "Obras programadas"
+              }
+            },
+            {
+              "value": "disrupted",
+              "label": {
+                "en": "Delays and changes",
+                "fr": "Retards et changements",
+                "de": "Verspätungen und Änderungen",
+                "es": "Retrasos y cambios"
+              }
+            },
+            {
+              "value": "suspended",
+              "label": {
+                "en": "Suspension",
+                "fr": "Suspension",
+                "de": "Einstellung",
+                "es": "Suspensión"
+              }
+            }
+          ],
+          "required": false
+        }
+      ],
+      "variables": [
+        {
+          "key": "line_name",
+          "type": "string",
+          "label": {
+            "en": "Line",
+            "fr": "Ligne",
+            "de": "Linie",
+            "es": "Línea"
+          },
+          "description": {
+            "en": "\"A train\", \"42 St Shuttle\".",
+            "fr": "« Ligne A », « 42 St Shuttle ».",
+            "de": "„Linie A“, „42 St Shuttle“.",
+            "es": "«Línea A», «42 St Shuttle»."
+          }
+        },
+        {
+          "key": "kind",
+          "type": "string",
+          "label": {
+            "en": "Kind (code)",
+            "fr": "Type (code)",
+            "de": "Art (Code)",
+            "es": "Tipo (código)"
+          },
+          "description": {
+            "en": "info, planned, disrupted, suspended",
+            "fr": "info, planned, disrupted, suspended",
+            "de": "info, planned, disrupted, suspended",
+            "es": "info, planned, disrupted, suspended"
+          }
+        },
+        {
+          "key": "title",
+          "type": "string",
+          "label": {
+            "en": "Title of the alert",
+            "fr": "Titre de l’alerte",
+            "de": "Titel der Meldung",
+            "es": "Título de la alerta"
+          },
+          "description": {
+            "en": "Its first sentence, in English.",
+            "fr": "Sa première phrase, en anglais.",
+            "de": "Ihr erster Satz, auf Englisch.",
+            "es": "Su primera frase, en inglés."
+          }
+        },
+        {
+          "key": "message",
+          "type": "string",
+          "label": {
+            "en": "Text of the alert",
+            "fr": "Texte de l’alerte",
+            "de": "Text der Meldung",
+            "es": "Texto de la alerta"
+          }
+        },
+        {
+          "key": "alert_type",
+          "type": "string",
+          "label": {
+            "en": "Type given by the MTA",
+            "fr": "Type donné par la MTA",
+            "de": "Art laut MTA",
+            "es": "Tipo dado por la MTA"
+          },
+          "description": {
+            "en": "\"Delays\", \"Planned - Part Suspended\", \"Station Notice\"…",
+            "fr": "\"Delays\", \"Planned - Part Suspended\", \"Station Notice\"…",
+            "de": "\"Delays\", \"Planned - Part Suspended\", \"Station Notice\"…",
+            "es": "\"Delays\", \"Planned - Part Suspended\", \"Station Notice\"…"
+          }
+        },
+        {
+          "key": "hours",
+          "type": "string",
+          "label": {
+            "en": "Hours (as written by the MTA)",
+            "fr": "Horaires (écrits par la MTA)",
+            "de": "Zeiten (von der MTA geschrieben)",
+            "es": "Horario (escrito por la MTA)"
+          },
+          "description": {
+            "en": "\"Nov 6 - 8, Fri 9:45 PM to Sun 10:00 PM\"",
+            "fr": "\"Nov 6 - 8, Fri 9:45 PM to Sun 10:00 PM\"",
+            "de": "\"Nov 6 - 8, Fri 9:45 PM to Sun 10:00 PM\"",
+            "es": "\"Nov 6 - 8, Fri 9:45 PM to Sun 10:00 PM\""
+          }
+        },
+        {
+          "key": "start",
+          "type": "string",
+          "label": {
+            "en": "Start (MM/DD HH:MM)",
+            "fr": "Début (MM/JJ HH:MM)",
+            "de": "Beginn (MM/TT HH:MM)",
+            "es": "Inicio (MM/DD HH:MM)"
+          }
+        },
+        {
+          "key": "end",
+          "type": "string",
+          "label": {
+            "en": "End (MM/DD HH:MM)",
+            "fr": "Fin (MM/JJ HH:MM)",
+            "de": "Ende (MM/TT HH:MM)",
+            "es": "Fin (MM/DD HH:MM)"
+          }
+        },
+        {
+          "key": "summary",
+          "type": "string",
+          "label": {
+            "en": "Summary",
+            "fr": "Résumé",
+            "de": "Zusammenfassung",
+            "es": "Resumen"
+          },
+          "description": {
+            "en": "A sentence ready to put in a message.",
+            "fr": "Une phrase prête à mettre dans un message.",
+            "de": "Ein Satz, bereit für eine Nachricht.",
+            "es": "Una frase lista para poner en un mensaje."
+          }
+        }
+      ]
+    }
+  ],
+  "scene_actions": [
+    {
+      "key": "get_next_departures",
+      "label": {
+        "en": "MTA: next trains",
+        "fr": "MTA : prochains trains",
+        "de": "MTA: nächste Züge",
+        "es": "MTA: próximos trenes"
+      },
+      "description": {
+        "en": "The next two trains of a station, and a sentence for a message.",
+        "fr": "Les deux prochains trains d’une station et une phrase pour un message.",
+        "de": "Die nächsten zwei Züge einer Station und ein Satz für eine Nachricht.",
+        "es": "Los dos próximos trenes de una estación y una frase para un mensaje."
+      },
+      "timeout_seconds": 30,
+      "fields": [
+        {
+          "key": "station",
+          "type": "select",
+          "source": "devices",
+          "label": {
+            "en": "Station",
+            "fr": "Station",
+            "de": "Station",
+            "es": "Estación"
+          },
+          "description": {
+            "en": "A station device of the integration. Leave empty for the first station.",
+            "fr": "Un appareil station de l’intégration. Laissez vide pour la première station.",
+            "de": "Ein Stationsgerät der Integration. Leer lassen für die erste Station.",
+            "es": "Un dispositivo estación de la integración. Déjalo vacío para la primera estación."
+          },
+          "required": false
+        }
+      ],
+      "outputs": [
+        {
+          "key": "station_name",
+          "type": "string",
+          "label": {
+            "en": "Station",
+            "fr": "Station",
+            "de": "Station",
+            "es": "Estación"
+          }
+        },
+        {
+          "key": "found",
+          "type": "boolean",
+          "label": {
+            "en": "Train found",
+            "fr": "Train trouvé",
+            "de": "Zug gefunden",
+            "es": "Tren encontrado"
+          }
+        },
+        {
+          "key": "line",
+          "type": "string",
+          "label": {
+            "en": "Line",
+            "fr": "Ligne",
+            "de": "Linie",
+            "es": "Línea"
+          }
+        },
+        {
+          "key": "destination",
+          "type": "string",
+          "label": {
+            "en": "Destination",
+            "fr": "Destination",
+            "de": "Ziel",
+            "es": "Destino"
+          }
+        },
+        {
+          "key": "minutes",
+          "type": "number",
+          "label": {
+            "en": "Wait (min, -1 if none)",
+            "fr": "Attente (min, -1 si aucun)",
+            "de": "Wartezeit (Min., -1 wenn keiner)",
+            "es": "Espera (min, -1 si no hay)"
+          }
+        },
+        {
+          "key": "time",
+          "type": "string",
+          "label": {
+            "en": "Expected time (HH:MM, New York)",
+            "fr": "Heure estimée (HH:MM, New York)",
+            "de": "Erwartete Zeit (HH:MM, New York)",
+            "es": "Hora estimada (HH:MM, Nueva York)"
+          }
+        },
+        {
+          "key": "scheduled",
+          "type": "boolean",
+          "label": {
+            "en": "Scheduled only",
+            "fr": "Seulement prévu",
+            "de": "Nur geplant",
+            "es": "Solo previsto"
+          }
+        },
+        {
+          "key": "following_minutes",
+          "type": "number",
+          "label": {
+            "en": "Wait for the following one (min)",
+            "fr": "Attente du suivant (min)",
+            "de": "Wartezeit des folgenden (Min.)",
+            "es": "Espera del siguiente (min)"
+          }
+        },
+        {
+          "key": "summary",
+          "type": "string",
+          "label": {
+            "en": "Summary",
+            "fr": "Résumé",
+            "de": "Zusammenfassung",
+            "es": "Resumen"
+          },
+          "description": {
+            "en": "A sentence ready to put in a message.",
+            "fr": "Une phrase prête à mettre dans un message.",
+            "de": "Ein Satz, bereit für eine Nachricht.",
+            "es": "Una frase lista para poner en un mensaje."
+          }
+        }
+      ]
+    },
+    {
+      "key": "get_line_status",
+      "label": {
+        "en": "MTA: status of a line",
+        "fr": "MTA : état d’une ligne",
+        "de": "MTA: Lage einer Linie",
+        "es": "MTA: estado de una línea"
+      },
+      "description": {
+        "en": "The service status of a line, its latest alert and a sentence for a message.",
+        "fr": "L’état du service d’une ligne, sa dernière alerte et une phrase pour un message.",
+        "de": "Die Betriebslage einer Linie, ihre letzte Meldung und ein Satz für eine Nachricht.",
+        "es": "El estado del servicio de una línea, su última alerta y una frase para un mensaje."
+      },
+      "timeout_seconds": 30,
+      "fields": [
+        {
+          "key": "line",
+          "type": "select",
+          "source": "devices",
+          "label": {
+            "en": "Line",
+            "fr": "Ligne",
+            "de": "Linie",
+            "es": "Línea"
+          },
+          "description": {
+            "en": "A line device of the integration. Leave empty for the first line.",
+            "fr": "Un appareil ligne de l’intégration. Laissez vide pour la première ligne.",
+            "de": "Ein Liniengerät der Integration. Leer lassen für die erste Linie.",
+            "es": "Un dispositivo línea de la integración. Déjalo vacío para la primera línea."
+          },
+          "required": false
+        }
+      ],
+      "outputs": [
+        {
+          "key": "line_name",
+          "type": "string",
+          "label": {
+            "en": "Line",
+            "fr": "Ligne",
+            "de": "Linie",
+            "es": "Línea"
+          },
+          "description": {
+            "en": "\"A train\", \"42 St Shuttle\".",
+            "fr": "« Ligne A », « 42 St Shuttle ».",
+            "de": "„Linie A“, „42 St Shuttle“.",
+            "es": "«Línea A», «42 St Shuttle»."
+          }
+        },
+        {
+          "key": "state",
+          "type": "string",
+          "label": {
+            "en": "State (code)",
+            "fr": "État (code)",
+            "de": "Zustand (Code)",
+            "es": "Estado (código)"
+          },
+          "description": {
+            "en": "normal, info, planned, disrupted, suspended, unknown",
+            "fr": "normal, info, planned, disrupted, suspended, unknown",
+            "de": "normal, info, planned, disrupted, suspended, unknown",
+            "es": "normal, info, planned, disrupted, suspended, unknown"
+          }
+        },
+        {
+          "key": "state_label",
+          "type": "string",
+          "label": {
+            "en": "State",
+            "fr": "État",
+            "de": "Zustand",
+            "es": "Estado"
+          }
+        },
+        {
+          "key": "disrupted",
+          "type": "boolean",
+          "label": {
+            "en": "Unplanned delays or suspension",
+            "fr": "Retards ou suspension imprévus",
+            "de": "Ungeplante Verspätung oder Einstellung",
+            "es": "Retrasos o suspensión imprevistos"
+          }
+        },
+        {
+          "key": "alert_count",
+          "type": "number",
+          "label": {
+            "en": "Alerts under way",
+            "fr": "Alertes en cours",
+            "de": "Aktuelle Meldungen",
+            "es": "Alertas en curso"
+          }
+        },
+        {
+          "key": "title",
+          "type": "string",
+          "label": {
+            "en": "Title of the latest alert",
+            "fr": "Titre de la dernière alerte",
+            "de": "Titel der letzten Meldung",
+            "es": "Título de la última alerta"
+          }
+        },
+        {
+          "key": "message",
+          "type": "string",
+          "label": {
+            "en": "Text of the latest alert",
+            "fr": "Texte de la dernière alerte",
+            "de": "Text der letzten Meldung",
+            "es": "Texto de la última alerta"
+          }
+        },
+        {
+          "key": "summary",
+          "type": "string",
+          "label": {
+            "en": "Summary",
+            "fr": "Résumé",
+            "de": "Zusammenfassung",
+            "es": "Resumen"
+          },
+          "description": {
+            "en": "A sentence ready to put in a message.",
+            "fr": "Une phrase prête à mettre dans un message.",
+            "de": "Ein Satz, bereit für eine Nachricht.",
+            "es": "Una frase lista para poner en un mensaje."
+          }
+        }
+      ]
+    }
+  ],
+  "widgets": [
+    {
+      "key": "departures",
+      "label": {
+        "en": "MTA departures",
+        "fr": "Départs MTA",
+        "de": "MTA Abfahrten",
+        "es": "Salidas MTA"
+      },
+      "description": {
+        "en": "The next trains of a station, like the countdown clocks.",
+        "fr": "Les prochains trains d’une station, comme les afficheurs des quais.",
+        "de": "Die nächsten Züge einer Station, wie die Countdown-Anzeigen.",
+        "es": "Los próximos trenes de una estación, como los relojes de cuenta atrás."
+      },
+      "icon": "clock",
+      "settings": [
+        {
+          "key": "station",
+          "type": "select",
+          "source": "devices",
+          "label": {
+            "en": "Station",
+            "fr": "Station",
+            "de": "Station",
+            "es": "Estación"
+          },
+          "description": {
+            "en": "A station device of the integration. Leave empty for the first station, or when you tick devices in “Several stations” below.",
+            "fr": "Un appareil station de l’intégration. Laissez vide pour la première station, ou si vous cochez des appareils dans « Plusieurs stations » ci-dessous.",
+            "de": "Ein Stationsgerät der Integration. Leer lassen für die erste Station oder wenn du unten unter „Mehrere Stationen“ Geräte ankreuzt.",
+            "es": "Un dispositivo estación de la integración. Déjalo vacío para la primera estación, o si marcas dispositivos en «Varias estaciones» más abajo."
+          },
+          "required": false
+        },
+        {
+          "key": "stations",
+          "type": "multi_select",
+          "source": "devices",
+          "label": {
+            "en": "Several stations",
+            "fr": "Plusieurs stations",
+            "de": "Mehrere Stationen",
+            "es": "Varias estaciones"
+          },
+          "description": {
+            "en": "Station devices shown together, instead of the station above. Devices of one station (one per line) are merged under its name.",
+            "fr": "Des appareils stations affichés ensemble, à la place de la station ci-dessus. Les appareils d’une même station (un par ligne) sont réunis sous son nom.",
+            "de": "Stationsgeräte, die zusammen angezeigt werden, statt der Station oben. Geräte derselben Station (eines pro Linie) werden unter ihrem Namen zusammengefasst.",
+            "es": "Dispositivos de estación mostrados juntos, en lugar de la estación de arriba. Los dispositivos de una misma estación (uno por línea) se reúnen bajo su nombre."
+          },
+          "required": false
+        },
+        {
+          "key": "station_name",
+          "type": "string",
+          "label": {
+            "en": "Other station",
+            "fr": "Autre station",
+            "de": "Andere Station",
+            "es": "Otra estación"
+          },
+          "description": {
+            "en": "A station name or a stop id, to show a station that is not followed.",
+            "fr": "Un nom de station ou un code d’arrêt, pour afficher une station non suivie.",
+            "de": "Ein Stationsname oder eine Haltestellen-ID, um eine nicht verfolgte Station anzuzeigen.",
+            "es": "Un nombre de estación o un código de parada, para mostrar una estación no seguida."
+          },
+          "placeholder": {
+            "en": "Union Sq-14 St",
+            "fr": "Union Sq-14 St",
+            "de": "Union Sq-14 St",
+            "es": "Union Sq-14 St"
+          },
+          "required": false
+        },
+        {
+          "key": "line",
+          "type": "string",
+          "label": {
+            "en": "Line of the other station",
+            "fr": "Ligne de l’autre station",
+            "de": "Linie der anderen Station",
+            "es": "Línea de la otra estación"
+          },
+          "placeholder": {
+            "en": "L",
+            "fr": "L",
+            "de": "L",
+            "es": "L"
+          },
+          "required": false
+        },
+        {
+          "key": "count",
+          "type": "number",
+          "label": {
+            "en": "Routes shown",
+            "fr": "Trajets affichés",
+            "de": "Angezeigte Fahrten",
+            "es": "Trayectos mostrados"
+          },
+          "description": {
+            "en": "One row per line and destination, with its next trains.",
+            "fr": "Une rangée par ligne et destination, avec ses prochains trains.",
+            "de": "Eine Zeile pro Linie und Ziel, mit ihren nächsten Zügen.",
+            "es": "Una fila por línea y destino, con sus próximos trenes."
+          },
+          "min": 1,
+          "max": 8,
+          "default": 6,
+          "required": false
+        }
+      ]
+    },
+    {
+      "key": "traffic",
+      "label": {
+        "en": "MTA service status",
+        "fr": "État du service MTA",
+        "de": "MTA Betriebslage",
+        "es": "Estado del servicio MTA"
+      },
+      "description": {
+        "en": "The service status of lines and their alerts.",
+        "fr": "L’état du service de lignes et leurs alertes.",
+        "de": "Die Betriebslage von Linien und ihre Meldungen.",
+        "es": "El estado del servicio de líneas y sus alertas."
+      },
+      "icon": "alert-triangle",
+      "settings": [
+        {
+          "key": "lines",
+          "type": "string",
+          "label": {
+            "en": "Lines",
+            "fr": "Lignes",
+            "de": "Linien",
+            "es": "Líneas"
+          },
+          "description": {
+            "en": "Empty for the followed lines (the lines of the followed stations when none is followed); otherwise up to 6, separated by commas.",
+            "fr": "Vide pour les lignes suivies (les lignes des stations suivies si aucune ne l’est) ; sinon jusqu’à 6, séparées par des virgules.",
+            "de": "Leer für die verfolgten Linien (die Linien der verfolgten Stationen, wenn keine verfolgt wird); sonst bis zu 6, durch Kommas getrennt.",
+            "es": "Vacío para las líneas seguidas (las líneas de las estaciones seguidas si no se sigue ninguna); si no, hasta 6, separadas por comas."
+          },
+          "placeholder": {
+            "en": "A, F, L, 7",
+            "fr": "A, F, L, 7",
+            "de": "A, F, L, 7",
+            "es": "A, F, L, 7"
+          },
+          "required": false
+        }
+      ]
+    }
+  ]
+}
